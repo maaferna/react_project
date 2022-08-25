@@ -1,3 +1,77 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }
+  
+  
+  .container-fluid .jumbotron, .container .jumbotron {
+    border-radius: 6px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  
+  @media screen and (min-width: 768px)
+  {
+  .container-fluid .jumbotron, .container .jumbotron {
+      padding-left: 60px;
+      padding-right: 60px;
+  }
+  }
+  
+  @media screen and (min-width: 768px)
+  {
+  .jumbotron {
+      padding-bottom: 48px;
+      padding-top: 48px;
+  }
+  }
+  
+  .jumbotron {
+    background: #9575CD ;
+    color:floralwhite;
+    padding-left: 60px;
+    padding-right: 60px;
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+    padding-top: 30px;
+  }
 .CardTitle {
     font-style: italic;
+}
+
+.row-header{
+    margin:0px auto;
+    padding:0px auto;
+}
+
+.row-content {
+    margin:0px auto;
+    padding: 50px 0px 50px 0px;
+    border-bottom: 1px ridge;
+    min-height:400px;
+}
+
+.footer{
+    background-color: #D1C4E9;
+    margin:0px auto;
+    padding: 20px 0px 20px 0px;
+}
+
+address{
+    font-size:80%;
+    margin:0px;
+    color:#0f0f0f;
+}
+
+.navbar-dark {
+    background-color: #512DA8;
 }

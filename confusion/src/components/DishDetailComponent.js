@@ -1,5 +1,5 @@
 import React from "react";
-import { Media, Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
 
 
 function RenderDish({dish}){
