@@ -38,8 +38,8 @@ class Main extends Component {
         <Header/>
         <Routes>
           <Route path="/home" element={ <HomePage/> } />
-          <Route path='/contactus' component={ < Contact />} />
-          <Route path="/menu" component={() => <Menu dishes={this.state.dishes} />} />
+          <Route path='/contactus' element={ < Contact />} />
+          <Route path="/menu" render={() => <Menu dishes={this.state.dishes} />} />
           <Route path="*" element={<Navigate replace to="/home" />} />
         </Routes>
         <Footer/>
