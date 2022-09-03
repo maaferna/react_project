@@ -10,6 +10,7 @@ import Footer from './FooterComponent';
 import Home from './HomeComponent';
 import { Navigate, Route, Routes, useParams } from 'react-router-dom';
 import Contact from './ContactComponent';
+import Aboutus from './AboutusComponent';
 
 
 class Main extends Component {
@@ -42,12 +43,14 @@ class Main extends Component {
       );
     }
 
+
     return (
       <div>
         <Header/>
         <Routes>
           <Route path='/home' element={ <HomePage/> } />
           <Route path='/contactus' element={ < Contact />} />
+          <Route path='/aboutus' element={ < Aboutus leaders={this.state.leaders}/>} />
           <Route exact path='/menu' element={<Menu dishes={this.state.dishes} />} />
           <Route path='/menu/:dishId' element={<DishWithId/>} />
           <Route path='*' element={<Navigate replace to="/home" />} />
