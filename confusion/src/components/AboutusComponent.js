@@ -11,8 +11,8 @@ function RenderLeader({leader}) {
                 <div className='col media-body'>
                     <h4 className='mt-0 mb-1'>{leader.name}</h4>
                     <p>{leader.designation}</p>
-                <p className="mb-4">{leader.description}</p>
-            </div>
+                    <p className="mb-4">{leader.description}</p>
+                </div>
             </div>
     );
 }
