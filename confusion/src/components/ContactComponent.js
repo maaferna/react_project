@@ -125,8 +125,7 @@ class Contact extends Component {
                                 <Label htmlFor="firstname" md={2}>First Name</Label>
                                 <Col md={10}>
                                     <Input type="text" id="firstname" name="firstname"
-                                    placeholder='First Name' 
-                                    value={this.state.firstname}
+                                    placeholder='First Name' value={this.state.firstname}
                                     valid={errors.firstname===''}
                                     invalid={errors.firstname!==''}
                                     onBlur={this.handleBlur('firstname')}
