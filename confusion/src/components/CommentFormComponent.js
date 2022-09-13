@@ -7,7 +7,7 @@ const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
 
-class CommentForm extends React.Component {
+export default class CommentForm extends React.Component {
     constructor(props) {
         super(props);
         this.toggleModal = this.toggleModal.bind(this);
@@ -52,7 +52,7 @@ class CommentForm extends React.Component {
                     <Row className="form-group">
                         <Label htmlFor="name" md={12}>Your Name</Label>
                         <Col md={12}>
-                            <Control.Text model=".name" id="name" className="form-control" name="name" placeholder="Your Name"
+                            <Control.text model=".name" id="name" className="form-control" name="name" placeholder="Your Name"
                                             validators={{ required, minLength: minLength(3), maxLength: maxLength(15) }}/>
                             <Errors className="text-danger" model=".name" show="touched"
                                     messages={{
@@ -65,7 +65,7 @@ class CommentForm extends React.Component {
                     <Row className="form-group">
                         <Label htmlFor="comment" md={12}>Comment</Label>
                         <Col md={12}>
-                        <Control.Textarea model=".comment" id="comment" rows="12" className="form-control" name="comment" />
+                        <Control.textarea model=".comment" id="comment" rows="12" className="form-control" name="comment" />
                         </Col>
                     </Row>
                     <Row className="form-group">
@@ -84,4 +84,3 @@ class CommentForm extends React.Component {
 
 }
 
-export default CommentForm;
