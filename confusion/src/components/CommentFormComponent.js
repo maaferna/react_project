@@ -3,6 +3,7 @@ import { Label, Button, Modal, ModalHeader, ModalBody, Row, Col } from 'reactstr
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import StarRatingComponent from 'react-star-rating-component';
 
+
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
@@ -23,8 +24,8 @@ export default class CommentForm extends React.Component {
     }
 
     handleSubmit(values) {
-        console.log("Current state is: " + JSON.stringify(values));
-        alert("Current state is: " + JSON.stringify(values));
+        this.toggleModal();
+        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
     }
 
     onStarClick(nextValue, prevValue, name) {

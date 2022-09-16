@@ -2,6 +2,7 @@ import React from "react";
 import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import CommentForm from "./CommentFormComponent";
+import { ADD_COMMENT } from "../redux/ActionTypes";
 
 function RenderDish({dish}){
         if (dish != null)
@@ -20,7 +21,7 @@ function RenderDish({dish}){
             );
     }
 
-function RenderComments({comments}){
+function RenderComments({comments, addComment, dishId}){
         if (comments == null) {
             return (
                 <div></div>
@@ -41,7 +42,8 @@ function RenderComments({comments}){
             <h4>Comments</h4>
             <ul className="list-unstyled">
                 { renderedComments }
-            </ul>   
+            </ul>
+            <CommentForm dishId={dishId} addComment={addComment} />   
         </div>
         );
     }
@@ -67,8 +69,9 @@ function RenderComments({comments}){
                         <RenderDish dish={props.dish} />
                     </div>
                     <div className="col-12 col-md-5 m-1">
-                        <RenderComments comments={props.comments} />
-                        <CommentForm />
+                        <RenderComments comments={props.comments}
+                            addComment={props.addComment}
+                            dishId={props.dishId}/>
                     </div>
                 </div>
             </div>
