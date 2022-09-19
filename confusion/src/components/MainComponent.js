@@ -6,7 +6,7 @@ import Footer from './FooterComponent';
 import Home from './HomeComponent';
 import Contact from './ContactComponent';
 import Aboutus from './AboutusComponent';
-import { addComment } from '../redux/ActionCreators';
+import { addComment, fetchDishes } from '../redux/ActionCreators';
 
 
 
@@ -24,16 +24,25 @@ const mapStateToProps = state => {
   }
 
 const mapDispatchToProps = (dispatch) =>({
-  addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment))
+  addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
+  fetchDishes: () =>{dispatch(fetchDishes())}
 });
 
   class Main extends Component {
+    constructor(props) {
+      super(props);
+    }
+    componentDidMount() {
+      this.props.fetchDishes();
+    }
 
     render() {
 
     const HomePage = () => {
       return(
-          <Home  dish={this.props.dishes.filter((dish)=> dish.featured)[0]}
+          <Home  dish={this.props.dishes.dishes.filter((dish)=> dish.featured)[0]}
+                dishesLoading={this.props.dishes.isLoagind}
+                dishesErrMess={this.props.dishes.errMess}
                 promotion={this.props.promotions.filter((promo)=> promo.featured)[0]} 
                 leader={this.props.leaders.filter((leader)=> leader.featured)[0]}/>
       );
@@ -42,9 +51,11 @@ const mapDispatchToProps = (dispatch) =>({
     const DishWithId = () => {
       const params = useParams();
       return (
-        <DishDetail dish={this.props.dishes.filter((dish)=>dish.id===parseInt(params.dishId,10))[0]}
-         comments={this.props.comments.filter((comment)=>comment.dishId === parseInt(params.dishId,10))}
-         addComment={this.props.addComment}
+        <DishDetail dish={this.props.dishes.dishes.filter((dish)=>dish.id===parseInt(params.dishId,10))[0]}
+          isLoading={this.props.dishes.isLoagind}
+          errMess={this.props.dishes.errMess}
+          comments={this.props.comments.filter((comment)=>comment.dishId === parseInt(params.dishId,10))}
+          addComment={this.props.addComment}
          />
       );
     }
