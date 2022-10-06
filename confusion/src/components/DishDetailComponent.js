@@ -5,6 +5,7 @@ import CommentForm from "./CommentFormComponent";
 import { ADD_COMMENT } from "../redux/ActionTypes";
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
+import { Stagger, Fade } from 'react-animation-components';
 
 function RenderDish({dish}){
         if (dish != null)
@@ -31,12 +32,15 @@ function RenderComments({comments, postComment, dishId}){
         }
         const renderedComments = comments.map((comment) => {
         return (
-            <div key={comment.id}>
-                <li>
-                    <p>{comment.comment}</p>
-                    <p>-- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</p>
-                </li>
-            </div>
+            <Fade in>
+                <div key={comment.id}>
+                    <li>
+                        <p>{comment.comment}</p>
+                        <p>-- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</p>
+                    </li>
+                </div>
+            </Fade>
+            
         );
     });
     return(
@@ -44,7 +48,9 @@ function RenderComments({comments, postComment, dishId}){
         <div>
             <h4>Comments</h4>
             <ul className="list-unstyled">
-                { renderedComments }
+                <Stagger in>
+                    { renderedComments }
+                </Stagger>
             </ul>
             <CommentForm dishId={dishId} postComment={postComment} />   
         </div>

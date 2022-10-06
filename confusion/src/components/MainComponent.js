@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useRef } from 'react';
 import Menu from './MenuComponent';
 import DishDetail from "./DishDetailComponent";
 import Header from './HeaderComponent';
@@ -9,10 +9,17 @@ import Aboutus from './AboutusComponent';
 import { postComment, fetchComments, fetchDishes, fetchPromos } from '../redux/ActionCreators';
 
 //Redux configuration
-import { Navigate, Route, Routes, useParams } from 'react-router-dom';
+import { Navigate, Route, Routes, useParams, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { actions } from 'react-redux-form';
+
+ 
+
+// animations
+import { TransitionGroup, CSSTransition} from 'react-transition-group';
+
+ 
 
 const mapStateToProps = state => {
     return {
@@ -31,18 +38,17 @@ const mapDispatchToProps = (dispatch) =>({
   fetchPromos: () =>{dispatch(fetchPromos())},
 });
 
-  class Main extends Component {
+class Main extends Component {
     constructor(props) {
       super(props);
     }
-
+    
     componentDidMount() {
       this.props.fetchDishes();
       this.props.fetchComments();
       this.props.fetchPromos();
-
-    }
-
+    }    
+    
     render() {
 
     const HomePage = () => {
@@ -71,20 +77,23 @@ const mapDispatchToProps = (dispatch) =>({
          />
       );
     }
-
-
+    
     return (
       <div>
-        <Header/>
-        <Routes>
-          <Route path='/home' element={ <HomePage/> } />
-          <Route path='/contactus' element={ < Contact resetFeedbackForm={this.props.resetFeedbackForm}/>} />
-          <Route path='/aboutus' element={ < Aboutus leaders={this.props.leaders}/>} />
-          <Route exact path='/menu' element={<Menu dishes={this.props.dishes} />} />
-          <Route path='/menu/:dishId' element={<DishWithId/>} />
-          <Route path='*' element={<Navigate replace to="/home" />} />
-        </Routes>
-        <Footer/>
+        <Header />
+            <TransitionGroup>
+              <CSSTransition classNames="page" timeout={300}>
+                <Routes>
+                  <Route path='/home' element={ <HomePage/> } />
+                  <Route path='/contactus' element={ < Contact resetFeedbackForm={this.props.resetFeedbackForm}/>} />
+                  <Route path='/aboutus' element={ < Aboutus leaders={this.props.leaders}/>} />
+                  <Route exact path='/menu' element={<Menu dishes={this.props.dishes} />} />
+                  <Route path='/menu/:dishId' element={<DishWithId/>} />
+                  <Route path='*' element={<Navigate replace to="/home" />} />
+                </Routes>
+              </CSSTransition>
+            </TransitionGroup>
+        <Footer />
       </div>
     );
   }
