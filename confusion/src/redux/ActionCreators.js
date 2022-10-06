@@ -3,15 +3,49 @@ import { DISHES } from "../shared/dishes";
 //comunicate with the server
 import { baseUrl } from '../shared/baseUrl';
 
-export const addComment = (dishId, rating, author, comment) => ({
+export const addComment = (comment) => ({
     type: ActionTypes.ADD_COMMENT,
-    payload: {
+    payload: comment
+});
+
+export const postComment = (dishId, rating, author, comment) => (dispatch) => {
+    const newComment  = {
         dishId: dishId,
         rating: rating,
         author: author,
         comment: comment
     }
-});
+    newComment.date = new Date().toISOString();
+
+    return fetch(baseUrl + 'comments', {
+        method: 'POST',
+        body: JSON.stringify(newComment),
+        headers: {
+            'Content-Type': 'application/json',           
+        },
+        credentials: 'same-origin'
+    })
+    .then(response => {
+        if (response.ok){
+            return response;
+        }
+        else {
+            var error = new Error('Error ' + response.status + response.statusText);
+            error.response = response;
+            throw error;
+        }        
+    },
+    error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+    })
+    .then(response => response.json())
+    .then(response => dispatch(addComment(response)))
+    .catch(error => { console.log('Post comments', error.message)
+    alert('Your comment could not be posted \n Error:'+ error.message)
+})
+
+}
 
 
 export const fetchDishes = () => (dispatch) => {
@@ -70,6 +104,7 @@ export const fetchComments = () => (dispatch) => {
         .then(comments => dispatch(addComments(comments)))
         .catch(error => dispatch(commentsFailed(error.message)));
 };
+
 
 export const commentsFailed = (errmess) => ({
     type: ActionTypes.COMMENTS_FAILED,

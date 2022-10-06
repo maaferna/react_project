@@ -6,7 +6,7 @@ import Footer from './FooterComponent';
 import Home from './HomeComponent';
 import Contact from './ContactComponent';
 import Aboutus from './AboutusComponent';
-import { addComment, fetchComments, fetchDishes, fetchPromos } from '../redux/ActionCreators';
+import { postComment, fetchComments, fetchDishes, fetchPromos } from '../redux/ActionCreators';
 
 //Redux configuration
 import { Navigate, Route, Routes, useParams } from 'react-router-dom';
@@ -24,7 +24,7 @@ const mapStateToProps = state => {
   }
 
 const mapDispatchToProps = (dispatch) =>({
-  addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
+  postComment: (dishId, rating, author, comment) => dispatch(postComment(dishId, rating, author, comment)),
   fetchDishes: () =>{dispatch(fetchDishes())},
   resetFeedbackForm: () => { dispatch(actions.reset('feedback'))},
   fetchComments: () =>{dispatch(fetchComments())},
@@ -61,12 +61,13 @@ const mapDispatchToProps = (dispatch) =>({
     const DishWithId = ({match}) => {
       const params = useParams();
       return (
-        <DishDetail dish={this.props.dishes.dishes.filter((dish)=>dish.id===parseInt(match.params.dishId,10))[0]}
+        <DishDetail 
+          dish={this.props.dishes.dishes.filter((dish) => dish.id === parseInt(params.dishId, 10))[0]}
           isLoading={this.props.dishes.isLoading}
           errMess={this.props.dishes.errMess}
-          comments={this.props.comments.comments.filter((comment)=>comment.dishId === parseInt(match.params.dishId,10))}
+          comments={this.props.comments.comments.filter((comment)=>comment.dishId === parseInt(params.dishId,10))}
           commentsErrMess={this.props.comments.errMess}
-          addComment={this.props.addComment}
+          postComment={this.props.postComment}
          />
       );
     }
