@@ -1,12 +1,15 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { baseUrl } from '../shared/baseUrl';
+import { Fade, Stagger} from 'react-animation-components';
+import { Loading } from './LoadingComponent';
 
 function RenderLeader({leader}) {
     return(
             <div className='row'>
                 <div className='col-2'>
-                    <img className='mr-3' src={leader.image} alt="Avatar" />
+                    <img className='mr-3' src={baseUrl + leader.image} alt="Avatar" />
                 </div>
                 <div className='col media-body'>
                     <h4 className='mt-0 mb-1'>{leader.name}</h4>
@@ -18,11 +21,44 @@ function RenderLeader({leader}) {
 }
 
 function Aboutus(props) {
-    const leaders = props.leaders.map((leader) => {
-        return (
-            <RenderLeader leader={leader} />
-        );
-    });
+    const leaders = (() => {
+        if (props.leaders.isLoading) {
+          return (
+            <div className="container">
+              <div className="row">
+                <Loading />
+              </div>
+            </div>
+          );
+        }
+        else if (props.leaders.errMess) {
+          return (
+            <div className="container">
+              <div className="row">
+                <h4>{props.leaders.errMess}</h4>
+              </div>
+            </div>
+          );
+        }
+        else {
+          return (
+            <ul className="list-unstyled">
+              <Stagger in>
+                {
+                  props.leaders.leaders.map((leader) => {
+                    return (
+                      <Fade in>
+                        <RenderLeader leader={leader} />
+                      </Fade>
+                    );
+                  })
+                }
+              </Stagger>
+            </ul>
+          );
+        }
+      })();
+  
 
     return(
         <div className='container'>
